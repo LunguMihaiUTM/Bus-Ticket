@@ -19,13 +19,11 @@ public class Ticket {
     @SequenceGenerator(name = "ticket_id_seq", sequenceName = "ticket_id_seq", allocationSize = 1)
     private Long ticketId;
 
-    @ManyToOne
     @JoinColumn(name = "trip_id", foreignKey = @ForeignKey(name = "FK_TICKET_TRIP"), nullable = false)
-    private Trip trip;
+    private Long tripId;
 
-    @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_TICKET_USER"), nullable = false)
-    private User user;
+    private Long userId;
 
     @Column(name = "seat_number", nullable = false)
     private Integer seatNumber;

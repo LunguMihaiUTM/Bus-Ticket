@@ -19,9 +19,8 @@ public class Seat {
     @SequenceGenerator(name = "seat_id_seq", sequenceName = "seat_id_seq", allocationSize = 1)
     private Long seatId;
 
-    @ManyToOne
     @JoinColumn(name = "trip_id", foreignKey = @ForeignKey(name = "FK_SEAT_TRIP"), nullable = false)
-    private Trip trip;
+    private Long tripId;
 
     @Column(name = "seat_number", nullable = false)
     private Integer seatNumber;
@@ -29,8 +28,7 @@ public class Seat {
     @Column(name = "is_booked", nullable = false)
     private Boolean isBooked;
 
-    @OneToOne
     @JoinColumn(name = "ticket_id", foreignKey = @ForeignKey(name = "FK_SEAT_TICKET"))
-    private Ticket ticket;
+    private Long ticketId;
 }
 

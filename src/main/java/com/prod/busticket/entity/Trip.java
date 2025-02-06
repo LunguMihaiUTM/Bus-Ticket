@@ -19,9 +19,8 @@ public class Trip {
     @SequenceGenerator(name = "trip_id_seq", sequenceName = "trip_id_seq", allocationSize = 1)
     private Long tripId;
 
-    @ManyToOne
     @JoinColumn(name = "bus_id", foreignKey = @ForeignKey(name = "FK_TRIP_BUS"), nullable = false)
-    private Bus bus;
+    private Long busId;
 
     @Column(name = "departure_location", nullable = false)
     private String departureLocation;

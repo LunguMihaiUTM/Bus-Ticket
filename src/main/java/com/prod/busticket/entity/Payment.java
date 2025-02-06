@@ -19,13 +19,11 @@ public class Payment {
     @SequenceGenerator(name = "payment_id_seq", sequenceName = "payment_id_seq", allocationSize = 1)
     private Long paymentId;
 
-    @ManyToOne
     @JoinColumn(name = "ticket_id", foreignKey = @ForeignKey(name = "FK_PAYMENT_TICKET"), nullable = false)
-    private Ticket ticket;
+    private Long ticketId;
 
-    @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_PAYMENT_USER"), nullable = false)
-    private User user;
+    private Long userId;
 
     @Column(name = "amount", nullable = false)
     private Double amount;
