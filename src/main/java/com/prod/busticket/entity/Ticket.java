@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 public class Ticket {
 
     @Id
-    @Column(name = "ticket_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticket_id_seq")
     @SequenceGenerator(name = "ticket_id_seq", sequenceName = "ticket_id_seq", allocationSize = 1)
-    private Long ticketId;
+    private Long id;
 
     @JoinColumn(name = "trip_id", foreignKey = @ForeignKey(name = "FK_TICKET_TRIP"), nullable = false)
     private Long tripId;
@@ -25,8 +25,8 @@ public class Ticket {
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_TICKET_USER"), nullable = false)
     private Long userId;
 
-    @Column(name = "seat_number", nullable = false)
-    private Integer seatNumber;
+    @JoinColumn(name = "seat_id", foreignKey = @ForeignKey(name = "FK_TICKET_SEAT"), nullable = false)
+    private Long seatId;
 
     @Column(name = "purchase_date", nullable = false)
     private java.time.LocalDateTime purchaseDate;

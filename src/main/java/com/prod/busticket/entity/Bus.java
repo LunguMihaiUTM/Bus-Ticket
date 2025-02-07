@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 public class Bus {
 
     @Id
-    @Column(name = "bus_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bus_id_seq")
     @SequenceGenerator(name = "bus_id_seq", sequenceName = "bus_id_seq", allocationSize = 1)
-    private Long busId;
+    private Long id;
 
     @Column(name = "bus_number", nullable = false, unique = true)
     private String busNumber;

@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 public class Trip {
 
     @Id
-    @Column(name = "trip_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trip_id_seq")
     @SequenceGenerator(name = "trip_id_seq", sequenceName = "trip_id_seq", allocationSize = 1)
-    private Long tripId;
+    private Long id;
 
     @JoinColumn(name = "bus_id", foreignKey = @ForeignKey(name = "FK_TRIP_BUS"), nullable = false)
     private Long busId;
