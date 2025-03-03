@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TicketDTO {
     private Long id;
-    private SeatDTO seatNumber;
-
+    private SeatDTO seat;
+    private TripDTO trip;
+    private UserDTO user;
 }
