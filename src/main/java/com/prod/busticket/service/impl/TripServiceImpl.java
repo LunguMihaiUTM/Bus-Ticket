@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -126,4 +127,45 @@ public class TripServiceImpl implements TripService {
                         .build())
                 .toList();
     }
+
+    @Override
+    public TripDTO createTrip(TripDTO tripDTO) {
+
+        Bus bus = busRepository.findById(tripDTO.getBus().getId())
+                .orElseGet(() -> {
+                    Bus newBus = Bus.builder()
+                            .busNumber(tripDTO.getBus().getBusNumber())
+                            .capacity(tripDTO.getBus().getCapacity())
+                            .companyName(tripDTO.getBus().getCompanyName())
+                            .type(tripDTO.getBus().getType())
+                            .build();
+                    return busRepository.save(newBus);
+                });
+
+        // Creăm trip-ul fără ID
+        Trip trip = Trip.builder()
+                .arrivalLocation(tripDTO.getArrivalLocation())
+                .departureLocation(tripDTO.getDepartureLocation())
+                .departureTime(tripDTO.getDepartureTime())
+                .arrivalTime(tripDTO.getArrivalTime())
+                .busId(bus.getId())
+                .price(tripDTO.getPrice())
+                .build();
+        trip = tripRepository.save(trip);
+
+        Trip finalTrip = trip;
+        List<Seat> seats = tripDTO.getSeats().stream()
+                .map(seat -> Seat.builder()
+                        .seatNumber(seat.getSeatNumber())
+                        .isBooked(seat.getIsBooked())
+                        .tripId(finalTrip.getId())
+                        .build())
+                .toList();
+        seatRepository.saveAll(seats);
+
+        return getTripById(trip.getId());
+    }
+
+    // set a trip to repeat once at some time
+
 }

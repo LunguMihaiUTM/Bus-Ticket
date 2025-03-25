@@ -8,4 +8,5 @@ import java.util.List;
 public interface TripService {
     List<TripDTO> getTrips(TripFilterDTO filter);
     TripDTO getTripById(Long tripId);
+    TripDTO createTrip(TripDTO trip);
 }

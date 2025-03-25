@@ -2,25 +2,20 @@ package com.prod.busticket.service.impl;
 
 import com.prod.busticket.dto.SeatDTO;
 import com.prod.busticket.dto.TicketDTO;
-import com.prod.busticket.dto.TripDTO;
 import com.prod.busticket.dto.UserDTO;
 import com.prod.busticket.entity.Seat;
 import com.prod.busticket.entity.Ticket;
 import com.prod.busticket.entity.User;
 import com.prod.busticket.repository.SeatRepository;
 import com.prod.busticket.repository.TicketRepository;
-import com.prod.busticket.repository.TripRepository;
 import com.prod.busticket.repository.UserRepository;
 import com.prod.busticket.service.TicketService;
 import com.prod.busticket.service.TripService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.grammars.hql.HqlParser;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Optional;
+
 
 @Slf4j
 @RequiredArgsConstructor
