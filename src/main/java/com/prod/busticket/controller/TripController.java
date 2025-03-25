@@ -27,4 +27,9 @@ public class TripController {
     public ResponseEntity<List<TripDTO>> getTripsByFilter(@RequestBody(required = false) TripFilterDTO filter) {
         return ResponseEntity.ok(tripService.getTrips(filter));
     }
+
+    @PostMapping("/create-trip")
+    public ResponseEntity<TripDTO> createTrip(@RequestBody TripDTO tripDTO) {
+        return ResponseEntity.ok(tripService.createTrip(tripDTO));
+    }
 }

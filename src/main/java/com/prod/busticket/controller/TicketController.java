@@ -6,10 +6,7 @@ import com.prod.busticket.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -24,6 +21,10 @@ public class TicketController {
         return ResponseEntity.ok(ticketService.getTicket(ticketId));
     }
 
-    // one more
+    @PostMapping("/create-ticket")
+    public ResponseEntity<TicketDTO> createTicket
+            (@RequestParam Long tripId, @RequestParam Long seatId, @RequestParam Long userId) {
+        return ResponseEntity.ok(ticketService.createTicket(tripId, seatId, userId));
+    }
 
 }
