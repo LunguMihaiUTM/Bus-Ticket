@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -166,6 +167,49 @@ public class TripServiceImpl implements TripService {
         return getTripById(trip.getId());
     }
 
-    // set a trip to repeat once at some time
+    @Override
+    public String resetAllTrips(){
+        List<Trip> trips = tripRepository.findAll();
+        LocalDateTime now = LocalDateTime.now();
+        int currentHour = now.getHour();
+        int currentMinute = now.getMinute();
+
+        for(Trip trip : trips) {
+
+            LocalDateTime arrivalTime = trip.getArrivalTime();
+            int tripArrivalHour = arrivalTime.getHour();
+            int tripArrivalMinute = arrivalTime.getMinute();
+
+            LocalDateTime departureTime = trip.getDepartureTime();
+            int tripDepartureHour = departureTime.getHour();
+            int tripDepartureMinute = departureTime.getMinute();
+
+            if(currentHour > tripArrivalHour + 1) {
+
+                resetSeatsByTripId(trip.getId());
+
+                LocalDateTime tomorrowArrivalTime = now.plusDays(1).withHour(tripArrivalHour).withMinute(tripArrivalMinute).withSecond(0).withNano(0);
+                LocalDateTime tomorrowDepartureTime = now.plusDays(1).withHour(tripDepartureHour).withMinute(tripDepartureMinute).withSecond(0).withNano(0);
+
+                trip.setArrivalTime(tomorrowArrivalTime);
+                trip.setDepartureTime(tomorrowDepartureTime);
+
+                tripRepository.save(trip);
+            }
+
+        }
+
+        return "Successfully Reset All Trips";
+    }
+
+    private void resetSeatsByTripId(Long tripId) {
+        List<Seat> seats = seatRepository.findAllByTripId(tripId);
+        if(!seats.isEmpty()){
+            for(Seat seat : seats) {
+                seat.setIsBooked(false);
+            }
+        }
+        seatRepository.saveAll(seats);
+    }
 
 }
