@@ -32,4 +32,9 @@ public class TripController {
     public ResponseEntity<TripDTO> createTrip(@RequestBody TripDTO tripDTO) {
         return ResponseEntity.ok(tripService.createTrip(tripDTO));
     }
+
+    @GetMapping("/reset-all-trips")
+    public ResponseEntity<String> resetAllTrips() {
+        return ResponseEntity.ok(tripService.resetAllTrips());
+    }
 }
